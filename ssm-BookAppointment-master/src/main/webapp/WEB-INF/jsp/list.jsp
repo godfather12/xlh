@@ -19,7 +19,7 @@
         	       		<tr> 
         					<th width="90" align="lift">图书名称：</th>
         					<th width="150" align="lift">
-        						<input type="text" name="name" class="allInput" value="${name}" placeholder="输入检索书名^o^" />
+        						<input type="text" name="name" class="allInput" value="${name}" placeholder="输入检索书名" />
         					</th>
         					<th> 
         						<input type="submit" id="tabSub" value="检索" /> 

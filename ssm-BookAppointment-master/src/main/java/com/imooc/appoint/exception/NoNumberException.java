@@ -2,6 +2,11 @@ package com.imooc.appoint.exception;
 
 //库存不足异常
 public class NoNumberException extends RuntimeException{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public NoNumberException(String message) {
 		super(message);
 	}
