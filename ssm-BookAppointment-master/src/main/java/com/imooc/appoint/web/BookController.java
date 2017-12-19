@@ -39,7 +39,7 @@ public class BookController {
 	private Logger logger=LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private BookService bookService;
-	//获取图书列表
+	//鑾峰彇鍥句功鍒楄〃
 	@RequestMapping(value="/list",method = RequestMethod.GET)
 	private String List(Model model){
 		List<Book> list = bookService.getList();
@@ -47,19 +47,19 @@ public class BookController {
 		
 		return "list";
 	}
-	//搜索是否有某图书
+	//鎼滅储鏄惁鏈夋煇鍥句功
 	@RequestMapping(value="/search",method = RequestMethod.POST)
 	private void  search(HttpServletRequest req,HttpServletResponse resp) 
 								throws ServletException, IOException{
-		//接收页面的值
+		//鎺ユ敹椤甸潰鐨勫��
 		String name=req.getParameter("name");
 		name=name.trim();
-		//向页面传值
+		//鍚戦〉闈紶鍊�
 		req.setAttribute("name", name);
 		req.setAttribute("list", bookService.getSomeList(name)); 
 		req.getRequestDispatcher("/WEB-INF/jsp/list.jsp").forward(req, resp); 
 	}
-	//查看某图书的详细情况
+	//鏌ョ湅鏌愬浘涔︾殑璇︾粏鎯呭喌
 	@RequestMapping(value = "/{bookId}/detail", method = RequestMethod.GET)
 	private String detail(@PathVariable("bookId") Long bookId, Model model){
 		if(bookId==null){
@@ -73,18 +73,19 @@ public class BookController {
 		System.out.println(book);
 		return "detail";
 	}
-	//验证输入的用户名、密码是否正确
+	//楠岃瘉杈撳叆鐨勭敤鎴峰悕銆佸瘑鐮佹槸鍚︽纭�
+	@SuppressWarnings("unused")
 	@RequestMapping(value="/verify", method = RequestMethod.POST, produces = {
 													"application/json; charset=utf-8" })
 	@ResponseBody
-	private Map validate(Long studentId,Long password){   //(HttpServletRequest req,HttpServletResponse resp){
-		Map resultMap=new HashMap(); 
+	private Map<String, String> validate(Long studentId,Long password){   //(HttpServletRequest req,HttpServletResponse resp){
+		Map<String, String> resultMap=new HashMap<String, String>(); 
 		Student student =null;  
-		System.out.println("验证函数"); 
+		System.out.println("楠岃瘉鍑芥暟"); 
 		student =bookService.validateStu(studentId,password);
 		
-		System.out.println("输入的学号、密码："+studentId+":"+password);
-		System.out.println("查询到的："+student.getStudentId()+":"+student.getPassword());
+		System.out.println("杈撳叆鐨勫鍙枫�佸瘑鐮侊細"+studentId+":"+password);
+		System.out.println("鏌ヨ鍒扮殑锛�"+student.getStudentId()+":"+student.getPassword());
 		
 		if(student!=null){
 			System.out.println("SUCCESS");
@@ -96,7 +97,7 @@ public class BookController {
 		}
 		
 	}
-	//执行预约的逻辑
+	//鎵ц棰勭害鐨勯�昏緫
 	@RequestMapping(value = "/{bookId}/appoint", method = RequestMethod.POST, produces = {
 	"application/json; charset=utf-8" })
 	@ResponseBody
@@ -104,7 +105,7 @@ public class BookController {
 		Result<AppointExecution> result;
 		AppointExecution execution=null;
 		
-		try{//手动try catch,在调用appoint方法时可能报错
+		try{//鎵嬪姩try catch,鍦ㄨ皟鐢╝ppoint鏂规硶鏃跺彲鑳芥姤閿�
 			execution=bookService.appoint(bookId, studentId);
 			result=new Result<AppointExecution>(true,execution); 
 				return result; 
